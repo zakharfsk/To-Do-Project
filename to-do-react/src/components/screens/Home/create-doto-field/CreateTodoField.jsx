@@ -1,14 +1,23 @@
 import React, {useState} from 'react';
+import axios from "axios";
 
-const CreateTodoField = ({setTodos}) => {
+const CreateTodoField = ({setTodos, showAlert}) => {
     const [title, setTitle] = useState('');
 
     const addTodo = title => {
-        setTodos(prev => [{
-            _id: new Date(),
-            title,
-            isCompleted: false
-        }, ...prev])
+        axios.post(
+            'http://127.0.0.1:8000/api/v1/todo/',
+            {title}
+        ).then(
+            response => {
+                if (response.status === 201) {
+                    setTodos(prev => [response.data, ...prev])
+                    showAlert([true, 'Success', 'Todo created'])
+                }
+            }
+        ).catch(
+            () => showAlert({show: true, title: 'Oops...', description: 'Something went wrong'})
+        )
         setTitle('');
     }
 
