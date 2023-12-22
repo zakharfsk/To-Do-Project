@@ -14,4 +14,4 @@
   - ❌ For Django Rest Framework
   - ❌ For Flask
   - ❌ For FastAPI
-- ❌ Add the ability to choose which backend to run
+- ❌ Add the ability to choose which backend to run for the frontend
