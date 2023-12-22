@@ -33,5 +33,7 @@ COPY . .
 # Expose the port that the application listens on.
 EXPOSE 8000
 
+RUN chmod +x /app/docker-entrypoint.sh
+
 # Run the application.
-CMD uvicorn app.main:app --host 0.0.0.0 --port 8000 --proxy-headers
+ENTRYPOINT ["/app/docker-entrypoint.sh"]

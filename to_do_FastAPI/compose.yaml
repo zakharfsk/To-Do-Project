@@ -24,7 +24,7 @@ services:
     volumes:
       - database-fastapi-data:/var/lib/postgresql/data
     ports:
-      - "15432:5432"
+      - "5432:5432"
 
   nginx:
     container_name: to-do-fastapi-nginx
