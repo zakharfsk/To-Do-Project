@@ -1,0 +1,40 @@
+version: "3.9"
+services:
+  server:
+    container_name: to-do-fastapi
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    env_file:
+      - ".env"
+    depends_on:
+      - database
+
+  database:
+    container_name: to-do-fastapi-db
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: to_do_fastapi_db
+    volumes:
+      - database-fastapi-data:/var/lib/postgresql/data
+    ports:
+      - "15432:5432"
+
+  nginx:
+    container_name: to-do-fastapi-nginx
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx-conf.d:/etc/nginx/nginx-conf.d
+    depends_on:
+      - server
+
+volumes:
+  database-fastapi-data:
