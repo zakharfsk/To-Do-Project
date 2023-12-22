@@ -18,6 +18,8 @@ Technologies used:
 - ✅ API on Django Rest Framework
 - ❌ API on Flask
 - ❌ API on FastAPI
+  - ✅ Alembic
+  - ✅ SQLAlchemy
 - ❌ Put all on Docker
   - ❌ Frontend on React
   - ✅ API on Django Rest Framework
