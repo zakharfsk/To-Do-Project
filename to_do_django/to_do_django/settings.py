@@ -164,7 +164,7 @@ REST_FRAMEWORK = {
 # API Docs
 SPECTACULAR_SETTINGS = {
     'TITLE': 'To Do Django API',
-    'DESCRIPTION': 'API for To Do Django for React',
+    'DESCRIPTION': 'API on Django for React',
     'VERSION': '0.0.1',
     'SERVE_INCLUDE_SCHEMA': False,
     'SWAGGER_UI_SETTINGS': {
