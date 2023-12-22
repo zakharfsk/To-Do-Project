@@ -1,14 +1,11 @@
 import React, {useState} from 'react';
-import axios from "axios";
+import ToDoServices from "../../../../API/ToDoServices";
 
 const CreateTodoField = ({setTodos, showAlert}) => {
     const [title, setTitle] = useState('');
 
-    const addTodo = title => {
-        axios.post(
-            'http://127.0.0.1:8000/api/v1/todo/',
-            {title}
-        ).then(
+    const addTodo = async title => {
+        await ToDoServices.addToDoItem(title).then(
             response => {
                 if (response.status === 201) {
                     setTodos(prev => [response.data, ...prev])

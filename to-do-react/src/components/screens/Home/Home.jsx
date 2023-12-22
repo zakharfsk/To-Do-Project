@@ -1,18 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import TodoItem from "./item/TodoItem";
 import CreateTodoField from "./create-doto-field/CreateTodoField";
-import axios from "axios";
-import ModalAlert from "../../ModalAlert";
+import ModalAlert from "../../ModalAlert/ModalAlert";
+import ToDoServices from "../../../API/ToDoServices";
 
 const Home = () => {
     const [todos, setTodos] = useState([]);
     const [alert, showAlert] = useState({show: false, title: '', description: ''})
     useEffect(() => {
-        getTodos();
+        (async () => await getTodos())()
     }, []);
 
-    const getTodos = () => {
-        axios.get('http://127.0.0.1:8000/api/v1/todo/').then(
+    const getTodos = async () => {
+        await ToDoServices.getToDos().then(
             response => {
                 if (response.status === 200) {
                     setTodos(response.data);
@@ -23,15 +23,11 @@ const Home = () => {
         )
     }
 
-    const changeTodo = (id) => {
+    const changeTodo = async (id) => {
         const copy = [...todos];
         const current = copy.find(t => t.id === id);
-        axios.patch(
-            `http://127.0.0.1:8000/api/v1/todo/${id}/`,
-            {
-                completed: !current.completed
-            }
-        ).then(
+
+        await ToDoServices.updateToDoStatus(id, current).then(
             response => {
                 if (response.status === 200) {
                     current.completed = !current.completed;
@@ -43,8 +39,8 @@ const Home = () => {
         );
     }
 
-    const removeTodo = (id) => {
-        axios.delete(`http://127.0.0.1:8000/api/v1/todo/${id}/`).then(
+    const removeTodo = async (id) => {
+        await ToDoServices.deleteToDoItem(id).then(
             response => {
                 if (response.status === 204) {
                     setTodos([...todos].filter(t => t.id !== id))
